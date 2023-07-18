@@ -6,10 +6,6 @@ import random
 IGNORED_URLS_FILE = "ignored_urls.txt"
 URL_FILE = "wordlist.txt"
 
-# in seconds
-MIN_DELAY = 0.1
-MAX_DELAY = 0.5
-
 SERVER_ADDRESS = "localhost"
 SERVER_PORT = 80
 
@@ -44,7 +40,7 @@ class CustomHandler(BaseHTTPRequestHandler):
             # either send 404 or do something else
             self.send_404()
             return
-        time.sleep(random.uniform(MIN_DELAY, MAX_DELAY))
+
         html = generate_html_page(self.path)
         self.send_response(200)
         self.send_header("Content-type", "text/html")
