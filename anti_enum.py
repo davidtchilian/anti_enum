@@ -23,12 +23,6 @@ with open(URL_FILE, "r") as f:
     for line in f.readlines():
         URLS.append(line.strip())
 
-print("loaded " + str(len(URLS)) + " URLs")
-# print first ten URLs
-print("first ten URLs:")
-for i in range(10):
-    print(URLS[i])
-
 for ignored_url in IGNORED_URLS:
     if ignored_url in URLS:
         URLS.remove(ignored_url)
@@ -46,6 +40,9 @@ class CustomHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path.split("/")[1:][0] not in URLS:
             print("not found: " + self.path.split("/")[1:][0])
+
+            # either send 404 or do something else
+            self.send_404()
             return
         time.sleep(random.uniform(MIN_DELAY, MAX_DELAY))
         html = generate_html_page(self.path)
@@ -53,6 +50,13 @@ class CustomHandler(BaseHTTPRequestHandler):
         self.send_header("Content-type", "text/html")
         self.end_headers()
         self.wfile.write(bytes(html, "utf-8"))
+        return
+
+    def send_404(self):
+        self.send_response(404)
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+        self.wfile.write(bytes("404 not found", "utf-8"))
         return
 
 def main():
