@@ -35,7 +35,7 @@ for ignored_url in IGNORED_URLS:
 
 def generate_html_page(path):
     num_a_tags = random.randint(5, 15)
-    html = "<html>\n<body>" + path + "<br>\n"
+    html = "<html>\n<body><br>\n"
     for i in range(num_a_tags):
         url = random.choice(URLS).strip()
         html += "<a href=\"" + url + "\">" + url + "</a><br>\n"
