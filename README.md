@@ -34,7 +34,7 @@ cd anti_enum
 1. Start the server by running the following command:`` 
 
 ```
-python3 anti_enum.py
+sudo python3 anti_enum.py
 ```
 
 

@@ -29,7 +29,7 @@ for ignored_url in IGNORED_URLS:
 
 def generate_html_page(path):
     num_a_tags = random.randint(5, 15)
-    html = "<html>\n<body><br>\n"
+    html = "<html>\n<body>\n"
     for i in range(num_a_tags):
         url = random.choice(URLS).strip()
         html += "<a href=\"" + url + "\">" + url + "</a><br>\n"
@@ -77,6 +77,10 @@ def main():
     except KeyboardInterrupt:
         print("\nstopping server...")
         httpd.socket.close()
+        sys.exit(1)
+    except Exception as e:
+        print(e)
+        print("Run the script as root and make sure your port is not in use.")
         sys.exit(1)
 
 if __name__ == "__main__":
